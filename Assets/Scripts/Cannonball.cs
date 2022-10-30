@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cannonball : MonoBehaviour
+public class CannonBall : MonoBehaviour
 {
+    public float lifeDuration = 4f;
 
-    public float life = 3;
-  void Awake() {
-    Destroy(gameObject, life);
- }
+    void Awake()
+    {
+        Destroy(gameObject, lifeDuration);
+    }
 
- private void OnCollisionEnter(Collision collision) {
-    if(collision.gameObject.tag == "target")
-    Destroy(collision.gameObject);
- }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Target"){
+            Destroy(collision.gameObject);
+        }
+    }
 }
