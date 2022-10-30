@@ -10,6 +10,7 @@ public class Life : MonoBehaviour
     public HealthBar healthBar;
     public GameObject gameOver;
     public GameState gameState;
+    public AudioSource damageSound;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +38,8 @@ public class Life : MonoBehaviour
     {
         if (collision.gameObject.tag == "Target"){
             TakeDamage();
+
+            damageSound.Play();
             Destroy(collision.gameObject);
         }
     }

@@ -9,6 +9,7 @@ public class EnemyMove : MonoBehaviour
     private Rigidbody rb;
     private Vector3 movement;
     private GameObject target;
+    public GameObject breakEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -35,4 +36,12 @@ public class EnemyMove : MonoBehaviour
     {
         rb.MovePosition(transform.position + (direction * moveSpeed * Time.deltaTime));
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "EnemyTarget" || collision.gameObject.tag == "Bullet"){
+            Destroy(Instantiate(breakEffect, transform.position, transform.rotation), 2);
+        }
+    }
+    
 }
