@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemy;
+    public GameObject enemy2;
     public float minTime, maxTime;
     public float minPosX, maxPosX;
     
@@ -17,7 +18,8 @@ public class EnemySpawner : MonoBehaviour
     {
         Instantiate(enemy, new Vector3(Random.Range(minPosX, maxPosX), transform.position.y, transform.position.z), Quaternion.identity);
         yield return new WaitForSeconds(Random.Range(minTime, maxTime));
-        
+        Instantiate(enemy2, new Vector3(Random.Range(minPosX, maxPosX), transform.position.y, transform.position.z), Quaternion.identity);
+        yield return new WaitForSeconds(Random.Range(minTime, maxTime));
         StartCoroutine(SpawnEnemy());
     }
 }
