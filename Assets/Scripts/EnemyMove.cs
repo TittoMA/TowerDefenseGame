@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyMove : MonoBehaviour
 {
-    public float moveSpeed;
     public float minSpeed = 4f, maxSpeed = 7f;
+    private float moveSpeed;
     private Rigidbody rb;
     private Vector3 movement;
     private GameObject target;
