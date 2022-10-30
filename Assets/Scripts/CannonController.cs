@@ -12,6 +12,7 @@ public class CannonController : MonoBehaviour
     public Transform shotPoint;
     public Transform cannon;
     public GameObject explosion;
+    public AudioSource shootSound;
 
     private void Update()
     {
@@ -21,8 +22,10 @@ public class CannonController : MonoBehaviour
                 Rigidbody shot = Instantiate(cannonBall, shotPoint.position, shotPoint.rotation) as Rigidbody;
                 shot.AddForce(shotPoint.forward * shotForce);
 
+                shootSound.Play();
                 // Added explosion for added effect
                 Destroy(Instantiate(explosion, shotPoint.position, shotPoint.rotation), 2);
+
             }
         }  
 
@@ -36,7 +39,7 @@ public class CannonController : MonoBehaviour
         float xRotation =  verticalRotation * verticalRotationSpeed * -1f;
         Vector3 rotation = new Vector3(xRotation, 0, 0);
 
-        if(cannon.rotation.eulerAngles.x + xRotation <= 110 && cannon.rotation.eulerAngles.x + xRotation >= 0){
+        if(cannon.rotation.eulerAngles.x + xRotation <= 90 && cannon.rotation.eulerAngles.x + xRotation >= 0){
             cannon.rotation = Quaternion.Euler(cannon.rotation.eulerAngles + rotation);
         }
 

@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3da276bc89ffaa4bad43d97424396ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 4902520505584285973, guid: b59c239c8afb2384182a4659bc24670d, type: 3}
   moveSpeed: 5
   minSpeed: 9
   maxSpeed: 12
+  breakEffect: {fileID: 4366672915619348846, guid: 8bf3425327f24cd4a8c15bf8f34888fd, type: 3}
 --- !u!54 &-9209448379976806205
 Rigidbody:
   m_ObjectHideFlags: 0
