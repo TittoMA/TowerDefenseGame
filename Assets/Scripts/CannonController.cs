@@ -1,31 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CannonController : MonoBehaviour
 {
     public float horizontalRotationSpeed = 3f;
     public float verticalRotationSpeed = 1.5f;
     public float shotForce = 1200f;
+    public float reloadTime = 1.5f;
+    public int maxAmmo = 4;
+    public int currentAmmo;
 
     public Rigidbody cannonBall;
     public Transform shotPoint;
     public Transform cannon;
     public GameObject explosion;
     public AudioSource shootSound;
+    public Text ammoText;
+
+    void Start(){
+        currentAmmo = maxAmmo;
+        ammoText.text = currentAmmo.ToString();
+    }
 
     private void Update()
     {
-         if(!GameState.gameIsPaused){
-            if (Input.GetButtonUp("Fire1"))
-            {
-                Rigidbody shot = Instantiate(cannonBall, shotPoint.position, shotPoint.rotation) as Rigidbody;
-                shot.AddForce(shotPoint.forward * shotForce);
+        if(!GameState.gameIsPaused){
 
-                shootSound.Play();
-                // Added explosion for added effect
-                Destroy(Instantiate(explosion, shotPoint.position, shotPoint.rotation), 2);
-
+            if(currentAmmo > 0) {
+                if (Input.GetButtonUp("Fire1"))
+                {
+                    Shoot();
+                }
+            } else {
+                StartCoroutine(Reload());
             }
         }  
 
@@ -44,6 +53,28 @@ public class CannonController : MonoBehaviour
         }
 
         // Debug.Log("ANGLESS " + cannon.rotation.eulerAngles.x);
+    }
+
+    void Shoot(){
+        Rigidbody shot = Instantiate(cannonBall, shotPoint.position, shotPoint.rotation) as Rigidbody;
+        shot.AddForce(shotPoint.forward * shotForce);
+        shootSound.Play();
+
+        // Added explosion for added effect
+        Destroy(Instantiate(explosion, shotPoint.position, shotPoint.rotation), 2);
+
+        currentAmmo--;
+        ammoText.text = currentAmmo.ToString();
+    }
+
+    IEnumerator Reload(){
+        Debug.Log("Reloading...");
+
+        ammoText.text = "Reloading...";
+        yield return new WaitForSeconds(reloadTime);
+
+        currentAmmo = maxAmmo;
+        ammoText.text = currentAmmo.ToString();
     }
 
 }
