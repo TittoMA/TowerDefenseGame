@@ -9,6 +9,8 @@ public class CannonController : MonoBehaviour
     public float verticalRotationSpeed = 1.5f;
     public float shotForce = 1200f;
     public float reloadTime = 1.5f;
+    public float fireRate = 1f;
+    float nextFire;
     public int maxAmmo = 4;
     public int currentAmmo;
 
@@ -56,15 +58,22 @@ public class CannonController : MonoBehaviour
     }
 
     void Shoot(){
-        Rigidbody shot = Instantiate(cannonBall, shotPoint.position, shotPoint.rotation) as Rigidbody;
-        shot.AddForce(shotPoint.forward * shotForce);
-        shootSound.Play();
 
-        // Added explosion for added effect
-        Destroy(Instantiate(explosion, shotPoint.position, shotPoint.rotation), 2);
+        if(Time.time > nextFire){
+            nextFire = Time.time + fireRate;
 
-        currentAmmo--;
-        ammoText.text = currentAmmo.ToString();
+            Rigidbody shot = Instantiate(cannonBall, shotPoint.position, shotPoint.rotation) as Rigidbody;
+            shot.AddForce(shotPoint.forward * shotForce);
+            shootSound.Play();
+
+            // Added explosion for added effect
+            Destroy(Instantiate(explosion, shotPoint.position, shotPoint.rotation), 2);
+
+            currentAmmo--;
+            ammoText.text = currentAmmo.ToString();
+        }
+
+        
     }
 
     IEnumerator Reload(){
